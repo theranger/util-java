@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by The Ranger on 16.06.2015.
+ * This test ensures that slug generator works properly
+ *
+ * @author The Ranger
  */
 public class TestSlugGenerator extends TestCase {
 
