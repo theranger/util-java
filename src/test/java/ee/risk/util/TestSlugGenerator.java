@@ -16,53 +16,46 @@ public class TestSlugGenerator extends TestCase {
 
 	@Override
 	public void setUp() {
-		entities = new ArrayList<>();
-		generator = new SlugGenerator<>(entities);
+		entities = new ArrayList<Entity>();
+		generator = new SlugGenerator<Entity>(entities);
 	}
 
-	@Test
 	public void testAddPlainToEmpty() {
 		entities.clear();
 		String slug = generator.getSlug(Entity.EntityWithTitle(1, "Estonia"));
 		assertEquals("estonia", slug);
 	}
 
-	@Test
 	public void testAddDashedStringToEmpty() {
 		entities.clear();
 		String slug = generator.getSlug(Entity.EntityWithTitle(1, "South-Korea"));
 		assertEquals("south-korea", slug);
 	}
 
-	@Test
 	public void testAddNumericToEmpty() {
 		entities.clear();
 		String slug = generator.getSlug(Entity.EntityWithTitle(1, "10"));
 		assertEquals("10", slug);
 	}
 
-	@Test
 	public void testAddDashedNumericToEmpty() {
 		entities.clear();
 		String slug = generator.getSlug(Entity.EntityWithTitle(1, "-10"));
 		assertEquals("-10", slug);
 	}
 
-	@Test
 	public void testAddDashedToEmpty() {
 		entities.clear();
 		String slug = generator.getSlug(Entity.EntityWithTitle(1, "-"));
 		assertEquals("-", slug);
 	}
 
-	@Test
 	public void testAddDashedMixedToEmpty() {
 		entities.clear();
 		String slug = generator.getSlug(Entity.EntityWithTitle(1, "South-Korea 10"));
 		assertEquals("south-korea-10", slug);
 	}
 
-	@Test
 	public void testAddPlainUnique() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "latvia"));
@@ -70,7 +63,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("estonia", slug);
 	}
 
-	@Test
 	public void testAddDashedUnique() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "latvia"));
@@ -78,7 +70,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("south-korea", slug);
 	}
 
-	@Test
 	public void testAddNumericUnique() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "latvia"));
@@ -86,7 +77,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("-10", slug);
 	}
 
-	@Test
 	public void testAddDashedMixedUnique() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "latvia"));
@@ -94,7 +84,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("south-korea-10", slug);
 	}
 
-	@Test
 	public void testAddPlainCollision() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "latvia"));
@@ -102,7 +91,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("latvia-1", slug);
 	}
 
-	@Test
 	public void testAddDashedCollision() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "south-korea"));
@@ -114,7 +102,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("south-korea-2", slug);
 	}
 
-	@Test
 	public void testAddDashCollision() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "-"));
@@ -122,7 +109,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("--1", slug);
 	}
 
-	@Test
 	public void testAddDashedNumericCollision() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "-10"));
@@ -130,7 +116,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("-10-1", slug);
 	}
 
-	@Test
 	public void testUpdateNoChange() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "estonia"));
@@ -147,7 +132,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("south-korea", slug);
 	}
 
-	@Test
 	public void testUpdateCollision() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "estonia"));
@@ -164,7 +148,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("estonia", slug);
 	}
 
-	@Test
 	public void testUpdateUnique() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "estonia"));
@@ -175,7 +158,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("latvia", slug);
 	}
 
-	@Test
 	public void testUpdateAlternatingFromLast() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "estonia"));
@@ -194,7 +176,6 @@ public class TestSlugGenerator extends TestCase {
 		assertEquals("south-korea-2", slug);
 	}
 
-	@Test
 	public void testUpdateAlternatingMiddle() {
 		entities.clear();
 		entities.add(Entity.EntityWithName(1, "estonia"));
