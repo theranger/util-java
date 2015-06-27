@@ -22,6 +22,8 @@ public class TestDateMangler extends TestCase {
 		date.set(Calendar.YEAR, 2015);
 		date.set(Calendar.MONTH, 5);
 		date.set(Calendar.DAY_OF_MONTH, 2);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 40);
 
 		maxDate = Calendar.getInstance();
 		maxDate.setTime(date.getTime());
@@ -37,47 +39,48 @@ public class TestDateMangler extends TestCase {
 		minDate.set(Calendar.MILLISECOND, 0);
 
 		dateMangler = new DateMangler(date.getTime());
+		dateMangler.setTimeZone("Europe/Tallinn");
 	}
 
 	public void testMinDate() {
-		assertEquals("Unexpected minimum date value", dateMangler.getBeginningOfDay(), minDate.getTime());
+		assertEquals("Unexpected minimum date value", minDate.getTime(), dateMangler.getBeginningOfDay());
 	}
 
 	public void testMaxDate() {
-		assertEquals("Unexpected maximum date value", dateMangler.getEndOfDay(), maxDate.getTime());
+		assertEquals("Unexpected maximum date value", maxDate.getTime(), dateMangler.getEndOfDay());
 	}
 
 	public void testStringDay() {
-		assertEquals("Unexpected day received", dateMangler.getDay(), "02");
+		assertEquals("Unexpected day received", "02", dateMangler.getDay());
 	}
 
 	public void testStringMonth() {
-		assertEquals("Unexpected month received", dateMangler.getMonth(), "06");
+		assertEquals("Unexpected month received", "06", dateMangler.getMonth());
 	}
 
 	public void testStringYear() {
-		assertEquals("Unexpected year received", dateMangler.getYear(), "2015");
+		assertEquals("Unexpected year received", "2015", dateMangler.getYear());
 	}
 
 	public void testNumericTriplet() {
 		DateMangler dateMangler = new DateMangler(2, 6, 2015);
-		assertEquals("Unexpected day received", dateMangler.getDay(), "02");
-		assertEquals("Unexpected month received", dateMangler.getMonth(), "06");
-		assertEquals("Unexpected year received", dateMangler.getYear(), "2015");
+		assertEquals("Unexpected day received", "02", dateMangler.getDay());
+		assertEquals("Unexpected month received", "06", dateMangler.getMonth());
+		assertEquals("Unexpected year received","2015", dateMangler.getYear());
 	}
 
 	public void testTomorrow() {
 		DateMangler today = new DateMangler(30, 6, 2015);
 		DateMangler tomorrow = today.getTomorrow();
-		assertEquals("Unexpected day received", tomorrow.getDay(), "01");
-		assertEquals("Unexpected month received", tomorrow.getMonth(), "07");
+		assertEquals("Unexpected day received", "01", tomorrow.getDay());
+		assertEquals("Unexpected month received","07", tomorrow.getMonth());
 	}
 
 	public void testYesterday() {
 		DateMangler today = new DateMangler(1, 6, 2015);
 		DateMangler yesterday = today.getYesterday();
-		assertEquals("Unexpected day received", yesterday.getDay(), "31");
-		assertEquals("Unexpected month received", yesterday.getMonth(), "05");
+		assertEquals("Unexpected day received", "31", yesterday.getDay());
+		assertEquals("Unexpected month received", "05", yesterday.getMonth());
 	}
 
 }
