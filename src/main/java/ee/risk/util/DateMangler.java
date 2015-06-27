@@ -52,6 +52,7 @@ public class DateMangler {
 		date.set(Calendar.YEAR, year);
 		date.set(Calendar.MONTH, month - 1);
 		date.set(Calendar.DAY_OF_MONTH, day);
+		date.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
 	/**
