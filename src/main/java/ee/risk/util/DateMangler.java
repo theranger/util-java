@@ -28,7 +28,7 @@ public class DateMangler {
 	public DateMangler(Date date) {
 		this.date = Calendar.getInstance();
 		this.date.setTime(date);
-		this.date.setTimeZone(TimeZone.getTimeZone("UTC"));
+		setTimeZone("UTC");
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class DateMangler {
 		date.set(Calendar.YEAR, year);
 		date.set(Calendar.MONTH, month - 1);
 		date.set(Calendar.DAY_OF_MONTH, day);
-		date.setTimeZone(TimeZone.getTimeZone("UTC"));
+		setTimeZone("UTC");
 	}
 
 	/**
@@ -76,6 +76,11 @@ public class DateMangler {
 
 		TimeZone tz = TimeZone.getTimeZone(timeZone);
 		date.setTimeZone(tz);
+
+		// This is madness...
+		// But on Android dates are not recalculated when TZ changes after time has been set
+		if(System.getProperty("java.runtime.name").toLowerCase().contains("android"))
+			date.setTime(date.getTime());
 	}
 
 	/**
