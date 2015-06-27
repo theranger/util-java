@@ -65,4 +65,19 @@ public class TestDateMangler extends TestCase {
 		assertEquals("Unexpected month received", dateMangler.getMonth(), "06");
 		assertEquals("Unexpected year received", dateMangler.getYear(), "2015");
 	}
+
+	public void testTomorrow() {
+		DateMangler today = new DateMangler(30, 6, 2015);
+		DateMangler tomorrow = today.getTomorrow();
+		assertEquals("Unexpected day received", tomorrow.getDay(), "01");
+		assertEquals("Unexpected month received", tomorrow.getMonth(), "07");
+	}
+
+	public void testYesterday() {
+		DateMangler today = new DateMangler(1, 6, 2015);
+		DateMangler yesterday = today.getYesterday();
+		assertEquals("Unexpected day received", yesterday.getDay(), "31");
+		assertEquals("Unexpected month received", yesterday.getMonth(), "05");
+	}
+
 }

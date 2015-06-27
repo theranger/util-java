@@ -7,6 +7,7 @@ import java.util.TimeZone;
 
 /**
  * Helps to handle dates that contain only year, month and day.
+ * Uses UTC timezone by default. To use localtime, set it explicitly via timezone argument.
  *
  * @author The Ranger
  */
@@ -16,6 +17,10 @@ public class DateMangler {
 	private Date dayStart;
 	private Date dayEnd;
 
+	private DateMangler(Calendar date) {
+		this.date = date;
+	}
+
 	/**
 	 * Initialize with classical Java date object
 	 * @param date Date to be mangled
@@ -23,6 +28,7 @@ public class DateMangler {
 	public DateMangler(Date date) {
 		this.date = Calendar.getInstance();
 		this.date.setTime(date);
+		this.date.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
 	/**
@@ -127,5 +133,26 @@ public class DateMangler {
 	 */
 	public String getYear() {
 		return String.format("%04d", date.get(Calendar.YEAR));
+	}
+
+
+	/**
+	 * Get previous day
+	 * @return New mangler object referring to yesterday
+	 */
+	public DateMangler getYesterday() {
+		Calendar c = date;
+		c.add(Calendar.DAY_OF_MONTH, -1);
+		return new DateMangler(c);
+	}
+
+	/**
+	 * Get next day
+	 * @return New mangler object referring to tomorrow
+	 */
+	public DateMangler getTomorrow() {
+		Calendar c = date;
+		c.add(Calendar.DAY_OF_MONTH, 1);
+		return new DateMangler(c);
 	}
 }
