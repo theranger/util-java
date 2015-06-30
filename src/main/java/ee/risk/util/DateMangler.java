@@ -90,7 +90,7 @@ public class DateMangler {
 	public Date getBeginningOfDay() {
 		if(dayStart != null) return dayStart;
 
-		Calendar c = date;
+		Calendar c = (Calendar) date.clone();
 		c.set(Calendar.HOUR_OF_DAY, c.getMinimum(Calendar.HOUR_OF_DAY));
 		c.set(Calendar.MINUTE, c.getMinimum(Calendar.MINUTE));
 		c.set(Calendar.SECOND, c.getMinimum(Calendar.SECOND));
@@ -107,7 +107,7 @@ public class DateMangler {
 	public Date getEndOfDay() {
 		if(dayEnd != null) return dayEnd;
 
-		Calendar c = date;
+		Calendar c = (Calendar) date.clone();
 		c.set(Calendar.HOUR_OF_DAY, c.getMaximum(Calendar.HOUR_OF_DAY));
 		c.set(Calendar.MINUTE, c.getMaximum(Calendar.MINUTE));
 		c.set(Calendar.SECOND, c.getMaximum(Calendar.SECOND));
@@ -147,7 +147,7 @@ public class DateMangler {
 	 * @return New mangler object referring to yesterday
 	 */
 	public DateMangler getYesterday() {
-		Calendar c = date;
+		Calendar c = (Calendar) date.clone();
 		c.add(Calendar.DAY_OF_MONTH, -1);
 		return new DateMangler(c);
 	}
@@ -157,7 +157,7 @@ public class DateMangler {
 	 * @return New mangler object referring to tomorrow
 	 */
 	public DateMangler getTomorrow() {
-		Calendar c = date;
+		Calendar c = (Calendar) date.clone();
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		return new DateMangler(c);
 	}
